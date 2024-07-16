@@ -3,32 +3,33 @@ import { View, Text, Image, StyleSheet, ActivityIndicator, FlatList } from "reac
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRelatedBooksByAuthor } from "../redux/actions/bookActions";
 import BookCard from "../components/BookCard";
-import RelatedBooks from "../components/RelatedBooks";
 
 const BookDetailsScreen = ({ route, navigation }) => {
 	const { book } = route.params;
 	const dispatch = useDispatch();
 	const relatedBooks = useSelector((state) => state.books.relatedBooks);
-	const loading = useSelector((state) => state.books.loading);
+	const loading = useSelector((state) => state.books.loadingRelated); // Ensure this is the correct loading state for related books
 	const error = useSelector((state) => state.books.error);
 
 	useEffect(() => {
-		if (book.author_name) {
-			dispatch(fetchRelatedBooksByAuthor(book.author_name));
-		}
-	}, [dispatch, book.author_name]);
+		dispatch(fetchRelatedBooksByAuthor(book.author_name));
+	}, [dispatch, book]);
 
 	const coverId = book.cover_id || book.cover_i || "default_cover_id";
 	const title = book.title || "No Title";
 	const author = (book.authors && book.authors[0] && book.authors[0].name) || book.author_name || "Unknown Author";
-	const rating_trimmed = book.ratings_average ? book.ratings_average.toFixed(1) : "No rating avaiable";
+	const rating_trimmed = book.ratings_average ? book.ratings_average.toFixed(1) : "No rating available";
+
 	const renderBookDetails = () => (
-		<View style={styles.detailsContainer}>
-			<Image source={{ uri: `https://covers.openlibrary.org/b/id/${coverId}-L.jpg` }} style={styles.image} />
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.author}>{author}</Text>
-			{book.first_sentence && <Text style={styles.sentence}>{book.first_sentence} ...</Text>}
-			<Text style={styles.rating}>Average user rating: {rating_trimmed}</Text>
+		<View>
+			<View style={styles.detailsContainer}>
+				<Image source={{ uri: `https://covers.openlibrary.org/b/id/${coverId}-L.jpg` }} style={styles.image} />
+				<Text style={styles.title}>{title}</Text>
+				<Text style={styles.author}>{author}</Text>
+				{book.first_sentence && <Text style={styles.sentence}>{book.first_sentence} ...</Text>}
+				<Text style={styles.rating}>Average user rating: {rating_trimmed}</Text>
+			</View>
+			<Text style={styles.related}>Other Books by {author}</Text>
 		</View>
 	);
 
@@ -97,6 +98,12 @@ const styles = StyleSheet.create({
 	sentence: {
 		fontSize: 16,
 		marginBottom: 20,
+	},
+	related: {
+		fontSize: 20,
+		fontWeight: "bold",
+		backgroundColor: "white",
+		marginStart: 20,
 	},
 	rating: {
 		fontSize: 18,

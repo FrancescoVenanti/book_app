@@ -71,7 +71,7 @@ export const fetchRelatedBooksByAuthor = (author) => async (dispatch) => {
 	try {
 		dispatch(fetchRelatedBooksStart());
 		const response = await axios.get(
-			`https://openlibrary.org/search.json?author=${author}&limit=5&fields=key,title,author_name,cover_i,first_sentence,ratings_average&sort=rating`
+			`https://openlibrary.org/search.json?author=${author}&limit=5&fields=key,title,author_name,cover_i,first_sentence,ratings_average`
 		);
 		dispatch(fetchRelatedBooksSuccess(response.data.docs));
 	} catch (error) {
