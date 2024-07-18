@@ -5,21 +5,20 @@ import { fetchCategories } from "../redux/actions/categoryActions";
 import CategorySquare from "../components/CategorySquare";
 
 const colorPalette = [
-	"#f28b82",
-	"#fbbc04",
-	"#fff475",
-	"#ccff90",
-	"#a7ffeb",
-	"#cbf0f8",
-	"#aecbfa",
-	"#d7aefb",
-	"#fdcfe8",
-	"#e6c9a8",
-	"#e8eaed",
-	"#f28b82",
-	"#fbbc04",
-	"#fff475",
-	"#ccff90",
+	"#4169e1", // Royal Blue
+	"#50c878", // Emerald Green
+	"#9966cc", // Amethyst Purple
+	"#ffd700", // Gold
+	"#dc143c", // Crimson Red
+	"#40e0d0", // Turquoise
+	"#ff7f50", // Coral Pink
+	"#4682b4", // Steel Blue
+	"#ffc40c", // Saffron Yellow
+	"#ff6347", // Tomato Red
+
+	"#6a5acd", // Slate Blue
+	"#20b2aa", // Light Sea Green
+	"#deb887", // Burlywood
 ];
 
 const CategoriesScreen = ({ navigation }) => {
